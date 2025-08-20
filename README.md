@@ -49,3 +49,23 @@ press 'r' inside the terminal to reload the app if it doesn't start after it fin
 
 video demo:
 https://youtube.com/shorts/bNuNUgd4b2E
+
+## Features:
+
+The layout of this app features two tabs, an AI conversation page and a dashboard page. 
+To navigate between the two pages, simply press on the tabs at the bottom.
+The AI conversation page features a basic chat window as with most AI conversation pages. It
+also has a side bar where you could add new threads, delete old threads, or edit thread titles.
+The Dashboard page allows for the adding and deleting of dashboards, and each dashboard allows
+for the adding and deleting of widgets in the form of line charts.
+
+## UI/UX decisions:
+
+UI/UX designs are not my strong suit, in fact, I highly suspect that I may have 
+zero aesthetic sense for these sort of things. 
+The UI/UX of this app are basic and simple, but more importantly to me,
+they're functional. Want to navigate to the dashboard page? simply click on the dashboard tab
+at the bottom. Want to add/delete a dashboard or widget? simply click on the add/delete button.
+Same goes for the threads in the AI conversation page. Want to add/edit/delete a thread? simply
+click on the add/edit/delete button.
+
