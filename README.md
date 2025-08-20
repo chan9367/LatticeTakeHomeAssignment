@@ -69,3 +69,12 @@ at the bottom. Want to add/delete a dashboard or widget? simply click on the add
 Same goes for the threads in the AI conversation page. Want to add/edit/delete a thread? simply
 click on the add/edit/delete button.
 
+## Architecture Notes:
+
+Nothing special when it comes to component structures, mostly just the basic components from 
+the React Native libraries. Same goes for state management, just there to remember which
+thread/dashboard the user was on at the time. New dashboards would get added into the picker.
+The widgets are line charts interfaces nested inside the dashboard interface, 
+with the data of the line charts being hardcoded. Whenever a widget gets added 
+to the active dashboard, another line chart is added to the existing
+array of line charts inside the dashboard.
