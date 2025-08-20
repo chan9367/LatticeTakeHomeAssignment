@@ -4,17 +4,48 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 ## Get started
 
-1. Install dependencies
+1. Download and install Android Studio
+
+   ```bash
+   https://developer.android.com/studio
+   when installing Android Studio, make sure that the following items are checked:
+   *Android SDK
+   *Android SDK Platform
+   *Android Virtual Device
+   ```
+
+2. Open the LatticeTakeHomeAssignment folder with Android Studio
+
+3. Inside Android Studio, open up the Terminal with Alt+F12 or click on 
+the Terminal button the side bar to the left (second to last at the bottom)
+
+4. Install dependencies by typing the following in the Terminal:
 
    ```bash
    npm install
    ```
+   
+5. On the side bar to the right, go to "Device Manager".
 
-2. Start the app
+6. If possible, start up an existing Virtual Device with the play button, 
+if not Click on "Add a new device", then "Create Virtual Device", 
+then click on "Medium Phone", then "Next" on the bottom right, 
+then "Finish" on the bottom right. Once you've created a Medium Phone Virtual Device,
+start it up by clicking on the play button.
+
+7. Once the Medium Phone Virtual Device is running, you can start the app by 
+typing the following in the Terminal:
 
    ```bash
    npx expo start
    ```
+
+8. When you see "Logs for your project will appear below. Press Ctrl+C to exit." in the Terminal
+You may press 'a' inside the terminal to start up the app in the Medium Phone Virtual Device.
+press 'r' inside the terminal to reload the app if it doesn't start after it finished bundling.
+
+9. press Ctrl+C inside the Terminal to exit.
+
 
 video demo:
 https://youtube.com/shorts/bNuNUgd4b2E
