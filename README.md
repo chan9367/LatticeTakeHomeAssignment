@@ -50,6 +50,9 @@ press 'r' inside the terminal to reload the app if it doesn't start after it fin
 video demo:
 https://youtube.com/shorts/bNuNUgd4b2E
 
+video demo 2, showcasing the overflowing of widgets in the dashboard page:
+https://youtube.com/shorts/IfEjP8rrR4A
+
 ## Features:
 
 The layout of this app features two tabs, an AI conversation page and a dashboard page. 
