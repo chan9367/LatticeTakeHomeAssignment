@@ -53,6 +53,9 @@ https://youtube.com/shorts/bNuNUgd4b2E
 video demo 2, showcasing the overflowing of widgets in the dashboard page:
 https://youtube.com/shorts/IfEjP8rrR4A
 
+video demo 3, showcasing the updated UI/UX and toggle light/dark theme:
+https://www.youtube.com/shorts/G6j3T1oL6dM
+
 ## Features:
 
 The layout of this app features two tabs, an AI conversation page and a dashboard page. 
