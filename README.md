@@ -59,6 +59,9 @@ https://www.youtube.com/shorts/G6j3T1oL6dM
 video demo 4, updated message bubbles and widgets with shadows and changed the dashboard picker into a segmentedbutton:
 https://youtube.com/shorts/keibGguZnis
 
+video demo 5, updated AI response card to blend into the background:
+https://youtube.com/shorts/ES3Z_2sKha8
+
 ## Features:
 
 The layout of this app features two tabs, an AI conversation page and a dashboard page. 

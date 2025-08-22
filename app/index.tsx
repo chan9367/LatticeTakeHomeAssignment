@@ -99,7 +99,7 @@ const HomeScreen: React.FC = () => {
     setTimeout(() => {
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Simulated AI response.\n \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum metus arcu, eget efficitur justo facilisis vel. Aliquam sagittis nibh eget nisl placerat porta. Quisque vulputate ante sed diam sodales varius. Nam pretium lectus in congue cursus. \n \n',
+        text: 'Simulated AI response.\n \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum metus arcu, eget efficitur justo facilisis vel. Aliquam sagittis nibh eget nisl placerat porta.',
         sender: 'ai',
       };
 
@@ -266,12 +266,7 @@ const HomeScreen: React.FC = () => {
                 style={[
                   styles.aiCard,
                   {
-                    backgroundColor: theme.aiCardBackground,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 1 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3,
-                    elevation: 1,
+                    backgroundColor: theme.aiCardBackground
                   },
                 ]}
               >
@@ -306,7 +301,7 @@ const HomeScreen: React.FC = () => {
               onPress={sendMessage}
               style={[styles.sendButton, { backgroundColor: theme.accent }]}
             >
-              <Text style={styles.sendButtonText}>Send</Text>
+              <Text style={styles.sendButtonText}>➤</Text>
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
@@ -360,9 +355,9 @@ const light = {
   icon: '#333',
   subtle: '#6B7280',
   border: '#D1D5DB',
-  userBubble: '#007AFF',
-  aiCardBackground: '#F7F8FA',
-  accent: '#007AFF',
+  userBubble: '#797878',
+  aiCardBackground: '#F2F4F7',
+  accent: '#797878',
 };
 
 const dark = {
@@ -376,9 +371,9 @@ const dark = {
   icon: '#DDDDDD',
   subtle: '#A1A1AA',
   border: '#3F3F46',
-  userBubble: '#0A84FF',
-  aiCardBackground: '#2A2A2E',
-  accent: '#0A84FF',
+  userBubble: '#797878',
+  aiCardBackground: '#1C1C1E',
+  accent: '#797878',
 };
 
 // Styles
