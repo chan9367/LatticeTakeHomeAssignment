@@ -43,7 +43,6 @@ const HomeScreen: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false); // 🌙 Dark mode toggle
 
   const sidebarX = useRef(new Animated.Value(-SIDEBAR_WIDTH)).current;
-
   const activeThread = threads.find(t => t.id === activeThreadId);
 
   const panResponder = useRef(
@@ -100,7 +99,7 @@ const HomeScreen: React.FC = () => {
     setTimeout(() => {
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Simulated AI response.',
+        text: 'Simulated AI response.\n \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum metus arcu, eget efficitur justo facilisis vel. Aliquam sagittis nibh eget nisl placerat porta. Quisque vulputate ante sed diam sodales varius. Nam pretium lectus in congue cursus. \n \n',
         sender: 'ai',
       };
 
@@ -244,18 +243,44 @@ const HomeScreen: React.FC = () => {
         <FlatList
           data={activeThread?.messages}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <View
-              style={[
-                styles.messageBubble,
-                item.sender === 'user'
-                  ? { backgroundColor: theme.userBubble, alignSelf: 'flex-end' }
-                  : { backgroundColor: theme.aiBubble, alignSelf: 'flex-start' },
-              ]}
-            >
-              <Text style={{ color: theme.text }}>{item.text}</Text>
-            </View>
-          )}
+          renderItem={({ item }) =>
+            item.sender === 'user' ? (
+              <View
+                style={[
+                  styles.messageBubble,
+                  {
+                    backgroundColor: theme.userBubble,
+                    alignSelf: 'flex-end',
+                    shadowColor: '#007AFF',
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 4,
+                    elevation: 3,
+                  },
+                ]}
+              >
+                <Text style={{ color: '#fff' }}>{item.text}</Text>
+              </View>
+            ) : (
+              <View
+                style={[
+                  styles.aiCard,
+                  {
+                    backgroundColor: theme.aiCardBackground,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 3,
+                    elevation: 1,
+                  },
+                ]}
+              >
+                <Text style={[styles.aiText, { color: theme.text }]}>{item.text}</Text>
+                <View style={[styles.divider, { color: theme.text}]} />
+              </View>
+
+            )
+          }
         />
 
         {/* Prompt Bar */}
@@ -323,6 +348,7 @@ const HomeScreen: React.FC = () => {
 
 export default HomeScreen;
 
+// Themes
 const light = {
   background: '#F2F4F7',
   sidebarBackground: '#FFFFFF',
@@ -335,7 +361,7 @@ const light = {
   subtle: '#6B7280',
   border: '#D1D5DB',
   userBubble: '#007AFF',
-  aiBubble: '#E5E7EB',
+  aiCardBackground: '#F7F8FA',
   accent: '#007AFF',
 };
 
@@ -351,23 +377,19 @@ const dark = {
   subtle: '#A1A1AA',
   border: '#3F3F46',
   userBubble: '#0A84FF',
-  aiBubble: '#3A3A3C',
+  aiCardBackground: '#2A2A2E',
   accent: '#0A84FF',
 };
 
+// Styles
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#F2F4F7',
-  },
+  container: { flex: 1, flexDirection: 'row' },
   sidebar: {
     position: 'absolute',
     left: 0,
     top: 0,
     bottom: 0,
     width: SIDEBAR_WIDTH,
-    backgroundColor: '#FFFFFF',
     paddingTop: 50,
     paddingHorizontal: 20,
     shadowColor: '#000',
@@ -377,88 +399,30 @@ const styles = StyleSheet.create({
     elevation: 5,
     zIndex: 10,
   },
-  sidebarTitle: {
-    fontSize: 22,
-    fontWeight: '600',
-    color: '#1A1A1A',
-    marginBottom: 20,
-  },
-  threadRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 14,
-    paddingVertical: 8,
-    paddingHorizontal: 8,
-    borderRadius: 8,
-  },
-  threadButton: {
-    flex: 1,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 6,
-  },
-  threadText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  activeThreadText: {
-    fontWeight: 'bold',
-    color: '#007AFF',
-  },
-  threadActions: {
-    flexDirection: 'row',
-    marginLeft: 8,
-  },
-  actionIcon: {
-    fontSize: 18,
-    marginLeft: 8,
-    opacity: 0.7,
-  },
+  sidebarTitle: { fontSize: 22, fontWeight: '600', marginBottom: 20 },
+  threadRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 14 },
+  threadButton: { flex: 1 },
+  threadText: { fontSize: 16 },
+  threadActions: { flexDirection: 'row', marginLeft: 8 },
+  actionIcon: { fontSize: 18, marginLeft: 8 },
   newThreadButton: {
     marginTop: 20,
-    backgroundColor: '#007AFF',
     padding: 14,
     borderRadius: 10,
     alignItems: 'center',
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
   },
-  newThreadText: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 16,
-  },
-  chatArea: {
-    flex: 1,
-    backgroundColor: '#F9FAFB',
-  },
+  newThreadText: { color: 'white', fontWeight: '600', fontSize: 16 },
+  chatArea: { flex: 1 },
   header: {
     height: 60,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
-    backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderColor: '#E5E7EB',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
   },
-  menuButton: {
-    fontSize: 24,
-    paddingRight: 16,
-    color: '#007AFF',
-  },
-  headerTitle: {
-    flex: 1,
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#1A1A1A',
-  },
+  menuButton: { fontSize: 24, paddingRight: 16 },
+  headerTitle: { flex: 1, fontSize: 20, fontWeight: '600' },
   messageBubble: {
     padding: 12,
     marginHorizontal: 12,
@@ -466,90 +430,65 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     maxWidth: '75%',
   },
-  userBubble: {
-    backgroundColor: '#007AFF',
-    alignSelf: 'flex-end',
-  },
-  aiBubble: {
-    backgroundColor: '#E5E7EB',
+  aiCard: {
+    padding: 16,
+    marginHorizontal: 12,
+    marginVertical: 8,
+    borderRadius: 12,
+    maxWidth: '90%',
     alignSelf: 'flex-start',
+  },
+  aiText: {
+    fontSize: 16,
+    lineHeight: 22,
+    fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
   },
   inputContainer: {
     flexDirection: 'row',
     padding: 12,
     borderTopWidth: 1,
-    borderColor: '#E5E7EB',
-    backgroundColor: '#FFFFFF',
     alignItems: 'center',
   },
   input: {
     flex: 1,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#D1D5DB',
     paddingHorizontal: 16,
     paddingVertical: Platform.OS === 'ios' ? 12 : 8,
-    backgroundColor: '#F9FAFB',
     fontSize: 16,
   },
   sendButton: {
     marginLeft: 10,
-    backgroundColor: '#007AFF',
     borderRadius: 20,
     paddingHorizontal: 20,
     paddingVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 3,
   },
-  sendButtonText: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 16,
-  },
+  sendButtonText: { color: 'white', fontWeight: '600', fontSize: 16 },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
     paddingHorizontal: 24,
   },
-  modalBox: {
-    backgroundColor: 'white',
-    padding: 24,
-    borderRadius: 12,
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 16,
-    color: '#1A1A1A',
-  },
+  modalBox: { padding: 24, borderRadius: 12 },
+  modalTitle: { fontSize: 20, fontWeight: '600', marginBottom: 16 },
   modalInput: {
     borderWidth: 1,
-    borderColor: '#D1D5DB',
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
-    backgroundColor: '#F9FAFB',
     marginBottom: 20,
   },
-  modalActions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+  divider: {
+    height: 1,
+    backgroundColor: '#D1D5DB',
+    marginTop: 12,
+    marginBottom: 4,
+    opacity: 0.9,
   },
-  cancelBtn: {
-    marginRight: 16,
-    color: '#6B7280',
-    fontSize: 16,
-  },
-  confirmBtn: {
-    color: '#007AFF',
-    fontWeight: '600',
-    fontSize: 16,
-  },
+  modalActions: { flexDirection: 'row', justifyContent: 'flex-end' },
+  cancelBtn: { marginRight: 16, fontSize: 16 },
+  confirmBtn: { fontWeight: '600', fontSize: 16 },
 });
-

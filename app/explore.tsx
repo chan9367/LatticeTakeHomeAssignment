@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { LineChart, Grid, YAxis, XAxis } from 'react-native-svg-charts';
 
 const sampleData = [
@@ -87,98 +86,109 @@ export default function TabTwoScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Dashboard Manager</Text>
+    <View style={styles.container}>
+      <ScrollView>
+        <Text style={styles.title}>📊 Dashboard Manager</Text>
 
-      <TouchableOpacity onPress={toggleTheme} style={styles.themeToggle}>
-        <Text style={styles.themeToggleText}>
-          Toggle Theme: {theme === 'dark' ? '🌙' : '☀️'}
+        <View style={styles.segmentedControl}>
+          {dashboards.map((dash) => (
+            <TouchableOpacity
+              key={dash.id}
+              onPress={() => setActiveDashboard(dash.id)}
+              style={[
+                styles.segmentButton,
+                activeDashboard === dash.id && styles.segmentButtonActive,
+              ]}
+            >
+              <Text
+                style={[
+                  styles.segmentText,
+                  activeDashboard === dash.id && styles.segmentTextActive,
+                ]}
+              >
+                {dash.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <View style={styles.controls}>
+          <View style={styles.buttonRow}>
+            <TouchableOpacity style={styles.buttonPrimary} onPress={addDashboard}>
+              <Text style={styles.buttonText}>➕ Add Dashboard</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.buttonDanger,
+                dashboards.length === 1 && styles.buttonDisabled,
+              ]}
+              onPress={() => deleteDashboard(activeDashboard)}
+              disabled={dashboards.length === 1}
+            >
+              <Text style={styles.buttonText}>🗑 Delete</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <TouchableOpacity style={styles.buttonAddWidget} onPress={addWidget}>
+          <Text style={styles.buttonText}>➕ Add Widget</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.subtitle}>{currentDashboard?.name}</Text>
+
+        {currentDashboard?.widgets.map((widget) => {
+          const data = widget.data.map((d) => d.value);
+          const labels = widget.data.map((d) => d.name);
+
+          return (
+            <View key={widget.id} style={styles.widgetContainer}>
+              <View style={styles.widgetHeader}>
+                <Text style={styles.widgetTitle}>{widget.title}</Text>
+                <TouchableOpacity
+                  onPress={() => deleteWidget(activeDashboard, widget.id)}
+                >
+                  <Text style={styles.deleteButton}>✖</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{ height: 200, flexDirection: 'row' }}>
+                <YAxis
+                  data={data}
+                  contentInset={{ top: 30, bottom: 30 }}
+                  svg={{ fontSize: 10, fill: theme === 'dark' ? '#9ca3af' : '#374151' }}
+                />
+                <LineChart
+                  style={{ flex: 1, marginLeft: 10 }}
+                  data={data}
+                  svg={{ stroke: theme === 'dark' ? '#60a5fa' : '#2563eb', strokeWidth: 3 }}
+                  contentInset={{ top: 30, bottom: 30 }}
+                >
+                  <Grid
+                    svg={{
+                      stroke: theme === 'dark' ? '#334155' : '#e5e7eb',
+                      strokeDasharray: [4, 4],
+                    }}
+                  />
+                </LineChart>
+              </View>
+              <XAxis
+                style={{ marginHorizontal: -10, marginTop: 10 }}
+                data={data}
+                formatLabel={(value, index) => labels[index]}
+                contentInset={{ left: 20, right: 20 }}
+                svg={{ fontSize: 10, fill: theme === 'dark' ? '#e5e7eb' : '#111827' }}
+              />
+            </View>
+          );
+        })}
+      </ScrollView>
+
+      {/* Floating Theme Toggle */}
+      <TouchableOpacity onPress={toggleTheme} style={styles.fabToggleTheme}>
+        <Text style={styles.fabToggleIcon}>
+          {theme === 'dark' ? '🌙' : '☀️'}
         </Text>
       </TouchableOpacity>
-
-      <View style={styles.controls}>
-        <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.buttonPrimary} onPress={addDashboard}>
-            <Text style={styles.buttonText}>+ Add Dashboard</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.buttonDanger,
-              dashboards.length === 1 && styles.buttonDisabled,
-            ]}
-            onPress={() => deleteDashboard(activeDashboard)}
-            disabled={dashboards.length === 1}
-          >
-            <Text style={styles.buttonText}>🗑 Delete</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.pickerContainer}>
-          <Text style={styles.label}>Select Dashboard</Text>
-          <Picker
-            selectedValue={activeDashboard}
-            onValueChange={(itemValue) => setActiveDashboard(itemValue)}
-            style={styles.picker}
-            dropdownIconColor={theme === 'dark' ? '#fff' : '#000'}
-          >
-            {dashboards.map((dash) => (
-              <Picker.Item
-                key={dash.id}
-                label={dash.name}
-                value={dash.id}
-                color={theme === 'dark' ? '#000' : '#000'}
-              />
-            ))}
-          </Picker>
-        </View>
-      </View>
-
-      <TouchableOpacity style={styles.buttonAddWidget} onPress={addWidget}>
-        <Text style={styles.buttonText}>➕ Add Widget</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.subtitle}>{currentDashboard?.name}</Text>
-
-      {currentDashboard?.widgets.map((widget) => {
-        const data = widget.data.map((d) => d.value);
-        const labels = widget.data.map((d) => d.name);
-
-        return (
-          <View key={widget.id} style={styles.widgetContainer}>
-            <View style={styles.widgetHeader}>
-              <Text style={styles.widgetTitle}>{widget.title}</Text>
-              <TouchableOpacity
-                onPress={() => deleteWidget(activeDashboard, widget.id)}
-              >
-                <Text style={styles.deleteButton}>✖</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{ height: 200, flexDirection: 'row' }}>
-              <YAxis
-                data={data}
-                contentInset={{ top: 20, bottom: 20 }}
-                svg={{ fontSize: 10, fill: theme === 'dark' ? '#9ca3af' : '#374151' }}
-              />
-              <LineChart
-                style={{ flex: 1, marginLeft: 10 }}
-                data={data}
-                svg={{ stroke: theme === 'dark' ? '#60a5fa' : '#2563eb' }}
-                contentInset={{ top: 20, bottom: 20 }}
-              >
-                <Grid svg={{ stroke: theme === 'dark' ? '#374151' : '#e5e7eb' }} />
-              </LineChart>
-            </View>
-            <XAxis
-              style={{ marginHorizontal: -10, marginTop: 10 }}
-              data={data}
-              formatLabel={(value, index) => labels[index]}
-              contentInset={{ left: 20, right: 20 }}
-              svg={{ fontSize: 10, fill: theme === 'dark' ? '#e5e7eb' : '#111827' }}
-            />
-          </View>
-        );
-      })}
-    </ScrollView>
+    </View>
   );
 }
 
@@ -191,35 +201,44 @@ function createStyles(theme: 'light' | 'dark') {
       flex: 1,
     },
     title: {
-      fontSize: 26,
-      fontWeight: 'bold',
-      marginBottom: 20,
+      fontSize: 28,
+      fontWeight: '800',
+      marginBottom: 16,
       color: isDark ? '#f9fafb' : '#111827',
     },
     subtitle: {
-      fontSize: 22,
-      marginVertical: 14,
+      fontSize: 20,
       fontWeight: '600',
+      marginVertical: 14,
       color: isDark ? '#d1d5db' : '#374151',
     },
     controls: {
-      marginBottom: 20,
+      marginBottom: 24,
     },
-    pickerContainer: {
-      backgroundColor: isDark ? '#1f2937' : '#ffffff',
+    segmentedControl: {
+      flexDirection: 'row',
+      backgroundColor: isDark ? '#1f2937' : '#e5e7eb',
+      borderRadius: 10,
+      padding: 4,
+      marginTop: 12,
+      marginBottom: 16,
+    },
+    segmentButton: {
+      flex: 1,
+      paddingVertical: 10,
       borderRadius: 8,
-      paddingHorizontal: 10,
-      marginTop: 10,
+      alignItems: 'center',
     },
-    picker: {
-      height: 50,
-      width: '100%',
-      color: isDark ? '#fff' : '#000',
+    segmentButtonActive: {
+      backgroundColor: isDark ? '#3b82f6' : '#2563eb',
     },
-    label: {
-      fontSize: 14,
-      marginBottom: 4,
-      color: isDark ? '#9ca3af' : '#6b7280',
+    segmentText: {
+      color: isDark ? '#9ca3af' : '#374151',
+      fontWeight: '500',
+    },
+    segmentTextActive: {
+      color: '#ffffff',
+      fontWeight: 'bold',
     },
     buttonRow: {
       flexDirection: 'row',
@@ -228,41 +247,46 @@ function createStyles(theme: 'light' | 'dark') {
     },
     buttonPrimary: {
       backgroundColor: '#3b82f6',
-      padding: 12,
-      borderRadius: 8,
-      flex: 1,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      borderRadius: 100,
       alignItems: 'center',
+      flex: 1,
     },
     buttonDanger: {
       backgroundColor: '#ef4444',
-      padding: 12,
-      borderRadius: 8,
-      flex: 1,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      borderRadius: 100,
       alignItems: 'center',
+      flex: 1,
     },
     buttonDisabled: {
       backgroundColor: '#7f1d1d',
     },
     buttonAddWidget: {
       backgroundColor: '#10b981',
-      padding: 14,
-      borderRadius: 8,
+      paddingVertical: 14,
+      borderRadius: 100,
       marginBottom: 16,
       alignItems: 'center',
     },
     buttonText: {
       color: '#ffffff',
       fontWeight: 'bold',
+      fontSize: 14,
     },
     widgetContainer: {
       marginBottom: 24,
       padding: 16,
-      backgroundColor: isDark ? '#1f2937' : '#ffffff',
-      borderRadius: 12,
+      backgroundColor: isDark ? '#1e293b' : '#ffffff',
+      borderRadius: 16,
       shadowColor: '#000',
-      shadowOpacity: 0.3,
-      shadowRadius: 5,
-      elevation: 3,
+      shadowOpacity: 0.1,
+      shadowRadius: 10,
+      elevation: 4,
+      borderWidth: 1,
+      borderColor: isDark ? '#334155' : '#e2e8f0',
     },
     widgetHeader: {
       flexDirection: 'row',
@@ -280,14 +304,23 @@ function createStyles(theme: 'light' | 'dark') {
       fontSize: 16,
       fontWeight: 'bold',
     },
-    themeToggle: {
-      marginBottom: 12,
-      alignSelf: 'flex-end',
+    fabToggleTheme: {
+      position: 'absolute',
+      top: 20,
+      right: 20,
+      backgroundColor: isDark ? '#374151' : '#e0e7ff',
+      borderRadius: 30,
+      width: 50,
+      height: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+      elevation: 5,
+      shadowColor: '#000',
+      shadowOpacity: 0.2,
+      shadowRadius: 5,
     },
-    themeToggleText: {
-      color: isDark ? '#e5e7eb' : '#374151',
-      fontSize: 14,
-      fontWeight: 'bold',
+    fabToggleIcon: {
+      fontSize: 24,
     },
   });
 }
