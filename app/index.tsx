@@ -37,6 +37,7 @@ const HomeScreen: React.FC = () => {
     { id: '2', title: 'Ideas', messages: [] },
   ]);
   const [activeThreadId, setActiveThreadId] = useState('1');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [inputText, setInputText] = useState('');
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editingThreadId, setEditingThreadId] = useState<string | null>(null);
@@ -57,6 +58,7 @@ const HomeScreen: React.FC = () => {
   ).current;
 
   const openSidebar = () => {
+    setSidebarOpen(true);
     Animated.timing(sidebarX, {
       toValue: 0,
       duration: 200,
@@ -65,6 +67,7 @@ const HomeScreen: React.FC = () => {
   };
 
   const closeSidebar = () => {
+    setSidebarOpen(false);
     Animated.timing(sidebarX, {
       toValue: -SIDEBAR_WIDTH,
       duration: 200,
@@ -227,6 +230,15 @@ const HomeScreen: React.FC = () => {
         </TouchableOpacity>
       </Animated.View>
 
+      {/* Overlay for closing sidebar */}
+      {sidebarOpen && (
+        <TouchableOpacity
+          style={styles.overlay}
+          activeOpacity={1}
+          onPress={closeSidebar}
+        />
+      )}
+
       {/* Main Chat Interface */}
       <View style={[styles.chatArea, { backgroundColor: theme.background }]}>
         {/* Header */}
@@ -235,7 +247,7 @@ const HomeScreen: React.FC = () => {
           <TouchableOpacity onPress={openSidebar}>
             <Text style={[styles.menuButton, { color: theme.accent }]}>☰</Text>
           </TouchableOpacity>
-          <Text style={[styles.headerTitle, { color: theme.text }]}>{activeThread?.title}</Text>
+          <Text style={[styles.headerTitle, { color: theme.text }]}></Text>
           <TouchableOpacity onPress={() => setDarkMode(prev => !prev)}>
             <Text style={{ fontSize: 20 }}>{darkMode ? '🌙' : '☀️'}</Text>
           </TouchableOpacity>
@@ -484,6 +496,15 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 4,
     opacity: 0.9,
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: SIDEBAR_WIDTH,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'transparent',
+    zIndex: 5,
   },
   modalActions: { flexDirection: 'row', justifyContent: 'flex-end' },
   cancelBtn: { marginRight: 16, fontSize: 16 },
