@@ -21,7 +21,7 @@ export default function TabLayout() {
         tabBarStyle: Platform.select({
           ios: {
             // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
+
           },
           default: {},
         }),
@@ -37,7 +37,7 @@ export default function TabLayout() {
         name="explore"
         options={{
           title: 'Dashboard',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="dashboard.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="rectangle.grid.2x2.fill" color={color}  />,
         }}
       />
     </Tabs>

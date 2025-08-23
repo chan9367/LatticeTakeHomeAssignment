@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  SafeAreaView,
 } from 'react-native';
 import { LineChart, Grid, YAxis, XAxis } from 'react-native-svg-charts';
 
@@ -86,9 +87,11 @@ export default function TabTwoScreen() {
   };
 
   return (
+
     <View style={styles.container}>
+    <SafeAreaView>
       <ScrollView>
-        <Text style={styles.title}>📊 Dashboard Manager</Text>
+        <Text style={styles.title}>Dashboard Manager</Text>
 
         <View style={styles.segmentedControl}>
           {dashboards.map((dash) => (
@@ -188,6 +191,7 @@ export default function TabTwoScreen() {
           {theme === 'dark' ? '🌙' : '☀️'}
         </Text>
       </TouchableOpacity>
+      </SafeAreaView>
     </View>
   );
 }

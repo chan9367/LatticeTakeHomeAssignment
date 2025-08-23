@@ -13,6 +13,7 @@ import {
   Modal,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -229,6 +230,7 @@ const HomeScreen: React.FC = () => {
       {/* Main Chat Interface */}
       <View style={[styles.chatArea, { backgroundColor: theme.background }]}>
         {/* Header */}
+        <SafeAreaView style={{ backgroundColor: theme.headerBackground }}>
         <View style={[styles.header, { backgroundColor: theme.headerBackground }]}>
           <TouchableOpacity onPress={openSidebar}>
             <Text style={[styles.menuButton, { color: theme.accent }]}>☰</Text>
@@ -238,7 +240,7 @@ const HomeScreen: React.FC = () => {
             <Text style={{ fontSize: 20 }}>{darkMode ? '🌙' : '☀️'}</Text>
           </TouchableOpacity>
         </View>
-
+        </SafeAreaView>
         {/* Messages */}
         <FlatList
           data={activeThread?.messages}
