@@ -69,6 +69,9 @@ https://youtube.com/shorts/keibGguZnis
 video demo 5, updated AI response card to blend into the background:
 https://youtube.com/shorts/ES3Z_2sKha8
 
+video demo FINAL, showcases the core functionalities with all the updated UI/UX:
+https://youtube.com/shorts/_mIpbx_yUxo
+
 ## Features:
 
 The layout of this app features two tabs, an AI conversation page and a dashboard page. 
