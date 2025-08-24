@@ -25,7 +25,14 @@ the Terminal button the side bar to the left (second to last at the bottom)
    npm install
    ```
    
-5. On the side bar to the right, go to "Device Manager".
+5. On the side bar to the right, go to "Device Manager". Alternatively, you can also simply download
+ the "Expo Go" app on your phone, then run
+   ```bash
+   npx expo start
+   ```
+on the terminal and use either your phone's camera or the Expo Go app's QR scanner to scan
+the QR code and run the it on your phone through Expo Go. You may ignore step 6 to 8 if you
+decided to run this app through Expo Go on your phone.
 
 6. If possible, start up an existing Virtual Device with the play button, 
 if not Click on "Add a new device", then "Create Virtual Device", 
