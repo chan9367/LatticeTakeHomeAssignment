@@ -53,23 +53,7 @@ press 'r' inside the terminal to reload the app if it doesn't start after it fin
 
 9. press Ctrl+C inside the Terminal to exit.
 
-
-video demo:
-https://youtube.com/shorts/bNuNUgd4b2E
-
-video demo 2, showcasing the overflowing of widgets in the dashboard page:
-https://youtube.com/shorts/IfEjP8rrR4A
-
-video demo 3, showcasing the updated UI/UX and toggle light/dark theme:
-https://www.youtube.com/shorts/G6j3T1oL6dM
-
-video demo 4, updated message bubbles and widgets with shadows and changed the dashboard picker into a segmentedbutton:
-https://youtube.com/shorts/keibGguZnis
-
-video demo 5, updated AI response card to blend into the background:
-https://youtube.com/shorts/ES3Z_2sKha8
-
-video demo FINAL, showcases the core functionalities with all the updated UI/UX:
+video demo, showcases the core functionalities with all the updated UI/UX:
 https://youtube.com/shorts/_mIpbx_yUxo
 
 ## Features:
